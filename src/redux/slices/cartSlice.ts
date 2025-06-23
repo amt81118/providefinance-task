@@ -18,8 +18,15 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addProduct: (state, action: PayloadAction<Product>) => {
-      state.products = [action.payload, ...state.products];
+     addProduct: (state, action: PayloadAction<Product>) => {
+      const productIndex = state.products.findIndex(
+        (product) => product.id === action.payload.id
+      );
+      if (productIndex == -1) {
+        state.products = [action.payload, ...state.products];
+      } else {
+		state.products[productIndex].quantity += 1;
+      }
     },
     emptyCart: (state:any) => {
       state.products = [];

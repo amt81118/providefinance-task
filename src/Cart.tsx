@@ -43,7 +43,7 @@ function Cart({ products = [], text = "Browse the items in your cart and then cl
 					</ListItem>
 				))}
 			</List>
-			<div>Total Price: {products.reduce((total, { price }) => total + price, 0)}</div>
+			<div>Total Price: ₹{products.reduce((total, { price, quantity }) => total + price * quantity, 0).toFixed(2)}</div>
 			{mode === "browse" ? (
 				<Button component={RouterLink} style={{ marginBottom: 10 }} to={"/checkout"} variant="contained">
 					Checkout
