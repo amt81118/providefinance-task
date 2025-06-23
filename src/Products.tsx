@@ -59,7 +59,7 @@ class ProductList extends React.Component<{}, ProductListState> {
           alignItems="center"
         >
           {this.state.products.map((product) => (
-            <Grid item key={product.id}>
+            <Grid key={product.id}>
               <Card>
                 <CardMedia
                   component="img"
