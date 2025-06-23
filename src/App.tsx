@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {  Route, Routes } from "react-router-dom";
 import Home from "./Home";
 import Layout from "./Layout";
 import Products from "./Products";
@@ -6,7 +6,6 @@ import Checkout from "./Checkout";
 
 function App() {
 	return (
-		<Router>
 			<Routes>
 				<Route path="/" element={<Layout />}>
 					<Route index element={<Home />} />
@@ -14,7 +13,6 @@ function App() {
 					<Route path="checkout" element={<Checkout />} />
 				</Route>
 			</Routes>
-		</Router>
 	);
 }
 
