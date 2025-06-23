@@ -9,6 +9,7 @@ type Product = {
 	title: string;
 	quantity: number;
 	price: number;
+	discountPercentage: number;
 };
 
 type CartProps = {
@@ -43,17 +44,25 @@ function Cart({ products = [], text = "Browse the items in your cart and then cl
 					</ListItem>
 				))}
 			</List>
-			<div>Total Price: ₹{products.reduce((total, { price, quantity }) => total + price * quantity, 0).toFixed(2)}</div>
+			<div>
+				<span>
+					Total Price: <span style={{ textDecoration: "line-through", color: "#888" }}>₹{products.reduce((total, { price, quantity }) => total + price * quantity, 0).toFixed(2)}</span>
+				</span>
+				<span style={{ marginLeft: 15 }}>
+					Discounted Price: {products.reduce((total, { price, discountPercentage = 0, quantity }) => total + (price - (price * discountPercentage) / 100) * quantity, 0).toFixed(2)}
+				</span>
+			</div>
+
 			{mode === "browse" ? (
-				<Button component={RouterLink} style={{ marginBottom: 10 }} to={"/checkout"} variant="contained">
+				<Button component={RouterLink} style={{ marginBottom: 10 }} to={"/checkout"} variant="contained" disabled={!products.length}>
 					Checkout
 				</Button>
 			) : (
-				<Button style={{ marginBottom: 10 }} onClick={handlePlaceOrder} variant="contained">
+				<Button style={{ marginBottom: 10 }} onClick={handlePlaceOrder} variant="contained" disabled={!products.length}>
 					Confirm Order
 				</Button>
 			)}
-			<Snackbar open={showSnackbar}  onClose={handleCloseSnackbar} autoHideDuration={2000} message="Order placed successfully!" />
+			<Snackbar open={showSnackbar} onClose={handleCloseSnackbar} autoHideDuration={2000} message="Order placed successfully!" />
 		</div>
 	);
 }
